@@ -18,6 +18,26 @@ const GUILD_ID = process.env.GUILD_ID;
 const app = express();
 app.use(express.json());
 
+import session from "express-session";
+
+// Render verwendet einen Proxy → Sessions funktionieren sonst nicht
+app.set("trust proxy", 1);
+
+app.use(
+  session({
+    secret: "supersecret-key-hier-aendern",
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      secure: true,       // Cookie NUR über HTTPS
+      httpOnly: true,     // Nicht über JS auslesbar
+      sameSite: "none",   // Wichtig: erlaubt Cross-Site Cookies
+      maxAge: 1000 * 60 * 60 * 24 // 1 Tag gültig
+    }
+  })
+);
+
+
 // Render static files from /public folder
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -105,6 +125,9 @@ app.get("/api/me", async (req, res) => {
     guildName: "Reckless"
   });
 });
+
+
+
 
 // ➤ Start server (Render dynamic port)
 const PORT = process.env.PORT || 3000;
