@@ -1,4 +1,3 @@
-// Elemente aus HTML
 const userAvatar = document.getElementById("user-avatar");
 const userDisplayName = document.getElementById("user-display-name");
 
@@ -11,31 +10,23 @@ function showPage(pageName) {
     }
 }
 
-// STATUS / LOGIN LADEN
-document.addEventListener("DOMContentLoaded", () => {
-    refreshStatus();
+// AUTOMATISCHER LOGIN BEI SEITENAUFRUF
+document.addEventListener("DOMContentLoaded", async () => {
+    const res = await fetch("/api/me", { credentials: "include" });
+    const data = await res.json();
+
+    if (!data.loggedIn) {
+        // Wenn NICHT eingeloggt → sofort zu Discord Login
+        window.location.href = "/auth/discord";
+        return;
+    }
+
+    // Wenn eingeloggt → Dashboard anzeigen
+    userDisplayName.textContent = data.username;
+    userAvatar.src = `https://cdn.discordapp.com/avatars/${data.id}/${data.avatar}.png?size=64`;
 });
 
-async function refreshStatus() {
-    try {
-        const res = await fetch("/api/me", { credentials: "include" });
-        const data = await res.json();
-
-        if (!data.loggedIn) {
-            userDisplayName.textContent = "Nicht eingeloggt";
-            return;
-        }
-
-        // User anzeigen
-        userDisplayName.textContent = data.username;
-        userAvatar.src = `https://cdn.discordapp.com/avatars/${data.id}/${data.avatar}.png?size=64`;
-
-    } catch (err) {
-        console.error("Fehler beim Status laden:", err);
-    }
-}
-
-// Mitgliederliste laden (Backend muss implementiert sein)
+// Mitgliederliste laden
 async function loadMembers() {
     try {
         const res = await fetch("/api/members", { credentials: "include" });
@@ -46,7 +37,6 @@ async function loadMembers() {
 
         members.forEach(m => {
             if (!m.user) return;
-
             table.innerHTML += `
                 <tr>
                     <td><img src="https://cdn.discordapp.com/avatars/${m.user.id}/${m.user.avatar}.png?size=32"></td>
