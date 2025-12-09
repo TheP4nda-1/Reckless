@@ -1,1 +1,41 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reckless Login</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
 
+<div class="wrapper">
+    <div class="card">
+        <h1>Reckless Dashboard</h1>
+        <p class="subtitle">
+            Logge dich mit Discord ein. Du erhältst nur Zugriff, wenn du Mitglied des Reckless-Discord-Servers bist.
+        </p>
+
+        <div id="status-box" class="status-box">
+            <p id="status-text">Lade Status…</p>
+        </div>
+
+        <div class="buttons">
+            <button id="login-btn" class="btn primary">
+                Mit Discord einloggen
+            </button>
+            <button id="logout-btn" class="btn secondary hidden">
+                Logout
+            </button>
+        </div>
+
+        <div id="user-info" class="user-info hidden">
+            <h2>Dein Profil</h2>
+            <p><strong>Discord:</strong> <span id="user-name"></span></p>
+            <p><strong>In Reckless-Server:</strong> <span id="guild-status"></span></p>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
