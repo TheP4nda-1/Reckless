@@ -49,10 +49,13 @@ app.get("/", (req, res) => {
 
 // ➤ Discord Login
 app.get("/auth/discord", (req, res) => {
-  const url = 
-    `https://discord.com/api/oauth2/authorize?client_id=${CLIENT_ID}` +
+  const url =
+    `https://discord.com/oauth2/authorize?` +
+    `client_id=${CLIENT_ID}` +
     `&redirect_uri=${encodeURIComponent(REDIRECT_URI)}` +
-    `&response_type=code&scope=identify%20guilds`;
+    `&response_type=code` +
+    `&scope=identify%20guilds`;
+
   
   return res.redirect(url);
 });
