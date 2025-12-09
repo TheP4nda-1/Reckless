@@ -18,7 +18,6 @@ const GUILD_ID = process.env.GUILD_ID;
 const app = express();
 app.use(express.json());
 
-import session from "express-session";
 
 // Render verwendet einen Proxy → Sessions funktionieren sonst nicht
 app.set("trust proxy", 1);
