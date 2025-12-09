@@ -50,3 +50,31 @@ async function loadMembers() {
         console.error("Fehler beim Laden der Mitgliederliste:", err);
     }
 }
+async function loadMembers() {
+    const table = document.getElementById("member-table");
+
+    // Tabelle leeren außer Header
+    table.innerHTML = `
+        <tr><th>Avatar</th><th>Name</th><th>ID</th></tr>
+    `;
+
+    const res = await fetch("/api/members");
+    const members = await res.json();
+
+    members.forEach(m => {
+        const row = document.createElement("tr");
+
+        const avatarURL = m.user.avatar
+            ? `https://cdn.discordapp.com/avatars/${m.user.id}/${m.user.avatar}.png?size=64`
+            : "https://cdn.discordapp.com/embed/avatars/0.png"; // fallback
+
+        row.innerHTML = `
+            <td><img src="${avatarURL}" width="40" style="border-radius:50%"></td>
+            <td>${m.user.username}#${m.user.discriminator}</td>
+            <td>${m.user.id}</td>
+        `;
+
+        table.appendChild(row);
+    });
+}
+
