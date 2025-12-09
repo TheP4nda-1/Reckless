@@ -122,7 +122,8 @@ app.get("/api/me", async (req, res) => {
     inGuild,
     guildName: "Reckless"
   });
-  
+});
+
 app.get("/api/members", async (req, res) => {
     try {
         const membersReq = await fetch(
