@@ -62,7 +62,7 @@ body {
 
 /* TOPBAR */
 #topbar {
-    width: 100%;
+    width: 20%;
     height: 70px;
     display: flex;
     justify-content: flex-end;
@@ -119,3 +119,4 @@ body {
 #member-table tr:hover {
     background: #1f1f1f;
 }
+
