@@ -84,4 +84,38 @@ body {
 
 #user-display-name {
     font-size: 18px;
-    font-wei
+    font-weight: bold;
+}
+
+#user-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 2px solid #444;
+}
+
+/* Page Content */
+.page {
+    padding: 20px;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Tabellen-Styling (Mitgliederliste) */
+#member-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+#member-table th,
+#member-table td {
+    padding: 10px;
+    border-bottom: 1px solid #333;
+}
+
+#member-table tr:hover {
+    background: #1f1f1f;
+}
