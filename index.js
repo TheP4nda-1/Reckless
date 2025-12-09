@@ -96,34 +96,41 @@ app.get("/callback", async (req, res) => {
 
 // ➤ Route: API -> User Status
 app.get("/api/me", async (req, res) => {
-  if (!req.session.access_token) {
-    return res.json({ loggedIn: false });
-  }
 
-  // Get user profile
-  const userReq = await fetch("https://discord.com/api/users/@me", {
-    headers: {
-      Authorization: `Bearer ${req.session.access_token}`,
-    },
-  });
-  const user = await userReq.json();
+    console.log("SESSION TOKEN =", req.session.access_token);
+    console.log("GUILD_ID =", process.env.GUILD_ID);
 
-  // Get guilds
-  const guildReq = await fetch("https://discord.com/api/users/@me/guilds", {
-    headers: {
-      Authorization: `Bearer ${req.session.access_token}`,
-    },
-  });
-  const guilds = await guildReq.json();
+    if (!req.session.access_token) {
+        console.log("⚠️ KEIN ACCESS TOKEN — nicht eingeloggt!");
+        return res.json({ loggedIn: false });
+    }
 
-  const inGuild = guilds.some(g => g.id === GUILD_ID);
+    // User abfragen
+    const userReq = await fetch("https://discord.com/api/users/@me", {
+        headers: { Authorization: `Bearer ${req.session.access_token}` }
+    });
 
-  return res.json({
-    loggedIn: true,
-    username: `${user.username}#${user.discriminator}`,
-    inGuild,
-    guildName: "Reckless"
-  });
+    const user = await userReq.json();
+    console.log("USER INFO =", user);
+
+    // Guilds abfragen
+    const guildReq = await fetch("https://discord.com/api/users/@me/guilds", {
+        headers: { Authorization: `Bearer ${req.session.access_token}` }
+    });
+
+    const guilds = await guildReq.json();
+    console.log("GUILDS =", guilds);
+
+    // Prüfen ob User auf deinem Server ist
+    const inGuild = guilds.some(g => g.id === process.env.GUILD_ID);
+    console.log("IN GUILD =", inGuild);
+
+    return res.json({
+        loggedIn: true,
+        username: `${user.username}#${user.discriminator}`,
+        inGuild,
+        guildName: "Reckless"
+    });
 });
 
 
