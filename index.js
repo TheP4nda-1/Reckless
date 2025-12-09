@@ -7,3 +7,7 @@ const __dirname = path.dirname(__filename);
 
 app.use(express.static(path.join(__dirname, "public")));
 
+app.listen(3000, () => {
+  console.log("Server läuft auf Port 3000");
+});
+
