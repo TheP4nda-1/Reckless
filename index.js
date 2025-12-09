@@ -1,15 +1,111 @@
 import express from "express";
+import session from "express-session";
+import fetch from "node-fetch";
+import dotenv from "dotenv";
 import path from "path";
 import { fileURLToPath } from "url";
 
+// Load .env variables
+dotenv.config();
+
+// Discord OAuth Settings
+const CLIENT_ID = process.env.CLIENT_ID;
+const CLIENT_SECRET = process.env.CLIENT_SECRET;
+const REDIRECT_URI = process.env.REDIRECT_URI;
+const GUILD_ID = process.env.GUILD_ID;
+
+// Express setup
+const app = express();
+app.use(express.json());
+
+// Render static files from /public folder
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 app.use(express.static(path.join(__dirname, "public")));
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Server läuft auf Port ${PORT}`);
+// Session setup
+app.use(
+  session({
+    secret: "supersecret-key-hier-aendern",
+    resave: false,
+    saveUninitialized: false,
+  })
+);
+
+// ➤ Route: Homepage (Lädt public/index.html)
+app.get("/", (req, res) => {
+    res.sendFile(path.join(__dirname, "public/index.html"));
 });
 
+// ➤ Route: Start Discord Login
+app.get("/auth/discord", (req, res) => {
+  const url = 
+    `https://discord.com/api/oauth2/authorize?client_id=${CLIENT_ID}` +
+    `&redirect_uri=${encodeURIComponent(REDIRECT_URI)}` +
+    `&response_type=code&scope=identify%20guilds`;
 
+  return res.redirect(url);
+});
+
+// ➤ Route: Discord Callback
+app.get("/callback", async (req, res) => {
+  const code = req.query.code;
+  if (!code) return res.send("Fehler: Kein Code erhalten.");
+
+  const tokenData = new URLSearchParams({
+    client_id: CLIENT_ID,
+    client_secret: CLIENT_SECRET,
+    grant_type: "authorization_code",
+    code: code,
+    redirect_uri: REDIRECT_URI,
+  });
+
+  const tokenResponse = await fetch("https://discord.com/api/oauth2/token", {
+    method: "POST",
+    body: tokenData,
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+  });
+
+  const tokenJSON = await tokenResponse.json();
+  req.session.access_token = tokenJSON.access_token;
+
+  // Weiter zur Webseite
+  return res.redirect("/");
+});
+
+// ➤ Route: API -> User Status
+app.get("/api/me", async (req, res) => {
+  if (!req.session.access_token) {
+    return res.json({ loggedIn: false });
+  }
+
+  // Get user profile
+  const userReq = await fetch("https://discord.com/api/users/@me", {
+    headers: {
+      Authorization: `Bearer ${req.session.access_token}`,
+    },
+  });
+  const user = await userReq.json();
+
+  // Get guilds
+  const guildReq = await fetch("https://discord.com/api/users/@me/guilds", {
+    headers: {
+      Authorization: `Bearer ${req.session.access_token}`,
+    },
+  });
+  const guilds = await guildReq.json();
+
+  const inGuild = guilds.some(g => g.id === GUILD_ID);
+
+  return res.json({
+    loggedIn: true,
+    username: `${user.username}#${user.discriminator}`,
+    inGuild,
+    guildName: "Reckless"
+  });
+});
+
+// ➤ Start server (Render dynamic port)
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`Server läuft auf Port ${PORT}`));
