@@ -1,38 +1,37 @@
-/* Grundlayout */
+/* ===== Grunddesign ===== */
 * {
-    box-sizing: border-box;
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-    background: #111;
-    color: white;
-    font-family: Arial, sans-serif;
+    font-family: "Inter", system-ui, sans-serif;
+    background: linear-gradient(135deg, #0f1116, #1a1d23);
+    color: #e8e8e8;
+    height: 100vh;
+    overflow: hidden;
 }
 
-/* App Container */
+/* ===== Layout ===== */
 #app-container {
     display: flex;
     height: 100vh;
 }
 
-/* SIDEBAR */
+/* ===== Sidebar ===== */
 #sidebar {
     width: 240px;
-    background: #1a1a1a;
-    padding: 20px;
-    border-right: 2px solid #333;
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100%;
+    background: rgba(15, 15, 20, 0.85);
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 25px;
+    backdrop-filter: blur(10px);
 }
 
 #sidebar h2 {
-    margin-bottom: 20px;
-    font-size: 24px;
-    text-align: center;
+    margin-bottom: 25px;
+    font-size: 22px;
+    font-weight: 700;
 }
 
 #sidebar ul {
@@ -41,50 +40,51 @@ body {
 
 #sidebar ul li {
     padding: 12px;
-    margin-bottom: 12px;
-    background: #222;
-    border-radius: 8px;
+    margin-bottom: 14px;
+    background: #1c1f26;
+    border-radius: 10px;
     cursor: pointer;
     text-align: center;
     transition: 0.15s;
+    font-size: 16px;
 }
 
 #sidebar ul li:hover {
-    background: #333;
+    background: #242830;
 }
 
-/* MAIN AREA */
+/* ===== Main Bereich ===== */
 #main-area {
-    margin-left: 240px;
     width: calc(100% - 240px);
     padding: 20px;
+    overflow-y: auto;
 }
 
-/* TOPBAR */
-#topbar {
-    width: 20%;
-    height: 70px;
+/* ===== Profilbox (rechts oben) ===== */
+#top-right-profile {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+
+    width: 20%; /* gewünschte Breite */
+    min-width: 250px;
+
+    background: rgba(20, 22, 28, 0.9);
+    padding: 16px;
+    border-radius: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(12px);
+
     display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    padding-right: 25px;
-    background: #1a1a1a;
-    border-bottom: 2px solid #333;
-    position: sticky;
-    top: 0;
-    z-index: 10;
+    flex-direction: column;
+    gap: 10px;
 }
 
-/* Userinfo rechts oben */
-#user-info-display {
+#profile-header {
     display: flex;
     align-items: center;
     gap: 12px;
-}
-
-#user-display-name {
-    font-size: 18px;
-    font-weight: bold;
 }
 
 #user-avatar {
@@ -94,29 +94,83 @@ body {
     border: 2px solid #444;
 }
 
-/* Page Content */
-.page {
-    padding: 20px;
+#user-display-name {
+    font-size: 18px;
+    font-weight: bold;
 }
 
+/* ===== Dashboard Karte ===== */
+.card {
+    background: rgba(20, 22, 28, 0.9);
+    padding: 28px;
+    margin-top: 120px;
+    width: 55%;
+    border-radius: 18px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.45);
+}
+
+.card h1 {
+    font-size: 30px;
+    font-weight: 800;
+    margin-bottom: 10px;
+}
+
+.card p.subtext {
+    color: #a8a8a8;
+    margin-bottom: 18px;
+}
+
+/* ===== Statusbox ===== */
+.status-box {
+    padding: 14px;
+    border-radius: 12px;
+    font-size: 15px;
+    background: rgba(40, 255, 140, 0.1);
+    border: 1px solid rgba(40, 255, 140, 0.4);
+    color: #9af7c2;
+    margin-bottom: 15px;
+}
+
+/* ===== Knöpfe ===== */
+.btn-row {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 15px;
+}
+
+.btn {
+    flex: 1;
+    padding: 12px 16px;
+    font-size: 15px;
+    border-radius: 12px;
+    cursor: pointer;
+    text-align: center;
+    transition: 0.15s;
+    border: none;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #5865f2, #4954d5);
+    color: white;
+    box-shadow: 0 6px 20px rgba(88, 101, 242, 0.45);
+}
+
+.btn-primary:hover {
+    background: #4954d5;
+}
+
+.btn-secondary {
+    background: #242830;
+    color: #dcdcdc;
+}
+
+.btn-secondary:hover {
+    background: #2c3038;
+}
+
+/* ===== Versteckte Elemente ===== */
 .hidden {
     display: none !important;
 }
-
-/* Tabellen-Styling (Mitgliederliste) */
-#member-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 15px;
-}
-
-#member-table th,
-#member-table td {
-    padding: 10px;
-    border-bottom: 1px solid #333;
-}
-
-#member-table tr:hover {
-    background: #1f1f1f;
-}
-
