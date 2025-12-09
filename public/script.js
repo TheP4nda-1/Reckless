@@ -1,14 +1,15 @@
 const userAvatar = document.getElementById("user-avatar");
 const userDisplayName = document.getElementById("user-display-name");
 
-function showPage(pageName) {
+function showPage(page) {
     document.querySelectorAll(".page").forEach(p => p.classList.add("hidden"));
-    document.getElementById(`page-${pageName}`).classList.remove("hidden");
+    document.getElementById("page-" + page).classList.remove("hidden");
 
-    if (pageName === "members") {
+    if (page === "members") {
         loadMembers();
     }
 }
+
 
 // AUTOMATISCHER LOGIN BEI SEITENAUFRUF
 document.addEventListener("DOMContentLoaded", async () => {
@@ -77,4 +78,5 @@ async function loadMembers() {
         table.appendChild(row);
     });
 }
+
 
