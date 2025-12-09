@@ -122,28 +122,27 @@ app.get("/api/me", async (req, res) => {
     inGuild,
     guildName: "Reckless"
   });
-});
-
-// ➤ Mitgliederliste abrufen
+  
 app.get("/api/members", async (req, res) => {
     try {
         const membersReq = await fetch(
             `https://discord.com/api/v10/guilds/${GUILD_ID}/members?limit=1000`,
             {
                 headers: {
-                    Authorization: `Bot ${process.env.MTQ0MzEzMzE3OTM3NTY0ODgxOA.GAGOUF.6Q5_PIXZl8MkyhwTMHYWUu-GgxXkssBLZilHOg}`
+                    Authorization: `Bot ${process.env.BOT_TOKEN}`
                 }
             }
         );
 
         const members = await membersReq.json();
-
         return res.json(members);
+
     } catch (err) {
         console.error("Fehler beim Abrufen der Mitgliederliste:", err);
         return res.status(500).json({ error: "Fehler beim Abrufen der Liste" });
     }
 });
+
 
 
 
