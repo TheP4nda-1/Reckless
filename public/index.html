@@ -9,33 +9,56 @@
 </head>
 <body>
 
-<div class="wrapper">
-    <div class="card">
-        <h1>Reckless Dashboard</h1>
-        <p class="subtitle">
-            Logge dich mit Discord ein. Du erhältst nur Zugriff, wenn du Mitglied des Reckless-Discord-Servers bist.
-        </p>
-
-        <div id="status-box" class="status-box">
-            <p id="status-text">Lade Status…</p>
+    <div id="app-container">
+        
+        <!-- SIDEBAR -->
+        <div id="sidebar">
+            <h2>Reckless Panel</h2>
+            <ul>
+                <li onclick="showPage('dashboard')">Dashboard</li>
+                <li onclick="showPage('members')">Mitgliederliste</li>
+                <li onclick="showPage('settings')">Einstellungen</li>
+                <li onclick="showPage('empty1')">Leer 1</li>
+                <li onclick="showPage('empty2')">Leer 2</li>
+            </ul>
         </div>
 
-        <div class="buttons">
-            <button id="login-btn" class="btn primary">
-                Mit Discord einloggen
-            </button>
-            <button id="logout-btn" class="btn secondary hidden">
-                Logout
-            </button>
+        <!-- MAIN AREA -->
+        <div id="main-area">
+
+            <!-- HEADER -->
+            <div id="topbar">
+                <div id="user-info-display">
+                    <img id="user-avatar" src="" alt="User Avatar">
+                    <span id="user-display-name"></span>
+                </div>
+            </div>
+
+            <!-- PAGES -->
+            <div id="page-dashboard" class="page">
+                <h2>Dashboard</h2>
+                <p>Willkommen im Reckless Control Panel.</p>
+            </div>
+
+            <div id="page-members" class="page hidden">
+                <h2>Mitgliederliste</h2>
+                <table id="member-table">
+                    <tr><th>Avatar</th><th>Name</th><th>ID</th></tr>
+                </table>
+            </div>
+
+            <div id="page-settings" class="page hidden">
+                <h2>Einstellungen</h2>
+            </div>
+
+            <div id="page-empty1" class="page hidden"><h2>Leer 1</h2></div>
+            <div id="page-empty2" class="page hidden"><h2>Leer 2</h2></div>
+
         </div>
 
-        <div id="user-info" class="user-info hidden">
-            <h2>Dein Profil</h2>
-            <p><strong>Discord:</strong> <span id="user-name"></span></p>
-            <p><strong>In Reckless-Server:</strong> <span id="guild-status"></span></p>
-        </div>
     </div>
-</div>
 
+    <script src="script.js"></script>
 </body>
+
 </html>
