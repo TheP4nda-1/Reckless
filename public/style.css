@@ -61,26 +61,25 @@ body {
 }
 
 /* ===== Profilbox (rechts oben) ===== */
-#top-right-profile {
-    position: absolute;
+/* FESTE PROFILBOX OBEN RECHTS */
+#profile-container {
+    position: fixed;
     top: 20px;
     right: 20px;
 
-    width: 20%; /* gewünschte Breite */
-    min-width: 250px;
-
+    width: 260px;     /* komplette Profilbeschreibung */
     background: rgba(20, 22, 28, 0.9);
-    padding: 16px;
-    border-radius: 14px;
-    border: 1px solid rgba(255, 255, 255, 0.07);
-    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.4);
-    backdrop-filter: blur(12px);
+    backdrop-filter: blur(10px);
 
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+    padding: 16px;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.05);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+
+    z-index: 9999;
 }
 
+/* Kopf (Avatar + Name) */
 #profile-header {
     display: flex;
     align-items: center;
@@ -98,6 +97,19 @@ body {
     font-size: 18px;
     font-weight: bold;
 }
+
+#user-discriminator {
+    font-size: 14px;
+    color: #ccc;
+    margin-top: -3px;
+}
+
+#profile-extra {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #bbb;
+}
+
 
 /* ===== Dashboard Karte ===== */
 .card {
@@ -174,3 +186,4 @@ body {
 .hidden {
     display: none !important;
 }
+
