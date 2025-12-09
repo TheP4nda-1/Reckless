@@ -1,3 +1,4 @@
+/* Grundlayout */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -5,132 +6,12 @@
 }
 
 body {
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    background: radial-gradient(circle at top, #20232a, #101216);
-    color: #f5f5f5;
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.wrapper {
-    width: 100%;
-    max-width: 480px;
-    padding: 16px;
-}
-
-.card {
-    background: rgba(15, 15, 20, 0.95);
-    border-radius: 16px;
-    padding: 24px 24px 28px;
-    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.6);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-h1 {
-    font-size: 1.8rem;
-    margin-bottom: 8px;
-}
-
-.subtitle {
-    font-size: 0.9rem;
-    color: #b0b3b8;
-    margin-bottom: 18px;
-}
-
-.status-box {
-    background: #18181f;
-    border-radius: 10px;
-    padding: 12px 14px;
-    margin-bottom: 18px;
-    font-size: 0.95rem;
-    border: 1px solid rgba(255, 255, 255, 0.06);
-}
-
-.status-ok {
-    border-color: #3fbf6b;
-    color: #b9f6ca;
-}
-
-.status-warn {
-    border-color: #ffb74d;
-    color: #ffe0b2;
-}
-
-.status-error {
-    border-color: #ef5350;
-    color: #ffcdd2;
-}
-
-.buttons {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 18px;
-}
-
-.btn {
-    flex: 1;
-    border: none;
-    border-radius: 999px;
-    padding: 10px 16px;
-    font-size: 0.95rem;
-    cursor: pointer;
-    transition: transform 0.08s ease, box-shadow 0.08s ease, background 0.15s;
-}
-
-.btn.primary {
-    background: #5865f2;
-    color: white;
-    box-shadow: 0 6px 16px rgba(88, 101, 242, 0.4);
-}
-
-.btn.primary:hover {
-    background: #4753d0;
-    transform: translateY(-1px);
-    box-shadow: 0 8px 20px rgba(88, 101, 242, 0.6);
-}
-
-.btn.secondary {
-    background: #2a2d3a;
-    color: #e4e6eb;
-}
-
-.btn.secondary:hover {
-    background: #333647;
-    transform: translateY(-1px);
-}
-
-.btn:active {
-    transform: translateY(0);
-    box-shadow: none;
-}
-
-.user-info {
-    border-top: 1px solid rgba(255, 255, 255, 0.06);
-    padding-top: 12px;
-    font-size: 0.9rem;
-}
-
-.user-info h2 {
-    font-size: 1.1rem;
-    margin-bottom: 6px;
-}
-
-.user-info p {
-    margin-bottom: 4px;
-}
-
-.hidden {
-    display: none;
-}
-body {
-    margin: 0;
     background: #111;
     color: white;
     font-family: Arial, sans-serif;
 }
 
+/* App Container */
 #app-container {
     display: flex;
     height: 100vh;
@@ -142,23 +23,30 @@ body {
     background: #1a1a1a;
     padding: 20px;
     border-right: 2px solid #333;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
 }
 
 #sidebar h2 {
     margin-bottom: 20px;
+    font-size: 24px;
+    text-align: center;
 }
 
 #sidebar ul {
     list-style: none;
-    padding: 0;
 }
 
 #sidebar ul li {
-    padding: 10px;
-    cursor: pointer;
+    padding: 12px;
+    margin-bottom: 12px;
     background: #222;
-    margin-bottom: 10px;
-    border-radius: 6px;
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: center;
+    transition: 0.15s;
 }
 
 #sidebar ul li:hover {
@@ -167,37 +55,9 @@ body {
 
 /* MAIN AREA */
 #main-area {
-    flex: 1;
+    margin-left: 240px;
+    width: calc(100% - 240px);
     padding: 20px;
-}
-
-/* TOPBAR */
-#topbar {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-#user-info-display {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-#user-avatar {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-}
-
-/* PAGES */
-.page {
-    display: block;
-}
-
-.hidden {
-    display: none !important;
 }
 
 /* TOPBAR */
@@ -205,16 +65,17 @@ body {
     width: 100%;
     height: 70px;
     display: flex;
-    justify-content: flex-end; /* Avatar & Name immer rechts */
+    justify-content: flex-end;
     align-items: center;
-    padding-right: 20px;
+    padding-right: 25px;
     background: #1a1a1a;
     border-bottom: 2px solid #333;
-    position: sticky;  /* Fixiert die Leiste */
+    position: sticky;
     top: 0;
     z-index: 10;
 }
 
+/* Userinfo rechts oben */
 #user-info-display {
     display: flex;
     align-items: center;
@@ -223,14 +84,4 @@ body {
 
 #user-display-name {
     font-size: 18px;
-    font-weight: bold;
-}
-
-#user-avatar {
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    border: 2px solid #555;
-}
-
-
+    font-wei
