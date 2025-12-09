@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
 // Login-Button leitet auf deinen OAuth2-Endpoint weiter
 loginBtn.addEventListener("click", () => {
     // Dieser Endpoint muss im Backend existieren und den Discord OAuth2 Flow starten
-    window.location.href = "/auth/discord";
+    window.location.href = "https://reckless-e311.onrender.com/auth/discord";
 });
 
 // Logout-Button (optional) – abhängig davon, ob du Sessions verwendest
@@ -92,5 +92,6 @@ function setStatus(text, type) {
     if (type === "warn") statusBoxEl.classList.add("status-warn");
     if (type === "error") statusBoxEl.classList.add("status-error");
 }
+
 
 
