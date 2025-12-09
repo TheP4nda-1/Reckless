@@ -124,6 +124,29 @@ app.get("/api/me", async (req, res) => {
   });
 });
 
+// ➤ Mitgliederliste abrufen
+app.get("/api/members", async (req, res) => {
+    try {
+        const membersReq = await fetch(
+            `https://discord.com/api/v10/guilds/${GUILD_ID}/members?limit=1000`,
+            {
+                headers: {
+                    Authorization: `Bot ${process.env.MTQ0MzEzMzE3OTM3NTY0ODgxOA.GAGOUF.6Q5_PIXZl8MkyhwTMHYWUu-GgxXkssBLZilHOg}`
+                }
+            }
+        );
+
+        const members = await membersReq.json();
+
+        return res.json(members);
+    } catch (err) {
+        console.error("Fehler beim Abrufen der Mitgliederliste:", err);
+        return res.status(500).json({ error: "Fehler beim Abrufen der Liste" });
+    }
+});
+
+
+
 // ➤ Server starten
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server läuft auf Port ${PORT}`));
