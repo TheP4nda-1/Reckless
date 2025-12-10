@@ -94,10 +94,15 @@ body {
 }
 
 #user-display-name {
-    font-size: 19px;
-    font-weight: bold;
-    text-shadow: 0 0 8px rgba(255,255,255,0.3);
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 2px;
 }
+#user-discriminator {
+    font-size: 14px;
+    opacity: 0.7;
+}
+
 
 /* ===== Dashboard Card ===== */
 .card {
@@ -189,3 +194,4 @@ body {
 .hidden {
     display: none !important;
 }
+
