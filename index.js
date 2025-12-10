@@ -126,17 +126,40 @@ app.get("/api/me", async (req, res) => {
 
 app.get("/api/members", async (req, res) => {
     try {
+        // 1) GUILD abrufen (für Rollen)
+        const guildReq = await fetch(
+            `https://discord.com/api/v10/guilds/${GUILD_ID}`,
+            {
+                headers: { Authorization: `Bot ${process.env.BOT_TOKEN}` }
+            }
+        );
+        const guild = await guildReq.json();
+
+        // Dictionary: roleId → roleName
+        const roleMap = {};
+        guild.roles.forEach(role => {
+            roleMap[role.id] = role.name;
+        });
+
+        // 2) Mitglieder abrufen
         const membersReq = await fetch(
             `https://discord.com/api/v10/guilds/${GUILD_ID}/members?limit=1000`,
             {
-                headers: {
-                    Authorization: `Bot ${process.env.BOT_TOKEN}`
-                }
+                headers: { Authorization: `Bot ${process.env.BOT_TOKEN}` }
             }
         );
-
         const members = await membersReq.json();
-        return res.json(members);
+
+        // 3) Mitglieder erweitern (nickname, roles → names)
+        const enhanced = members.map(m => ({
+            id: m.user.id,
+            username: m.user.username,
+            avatar: m.user.avatar,
+            nickname: m.nick || null,
+            roles: m.roles.map(rid => roleMap[rid] || rid) // Rolle in Namen umwandeln
+        }));
+
+        return res.json(enhanced);
 
     } catch (err) {
         console.error("Fehler beim Abrufen der Mitgliederliste:", err);
