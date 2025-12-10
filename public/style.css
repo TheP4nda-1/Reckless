@@ -155,7 +155,7 @@ body {
 }
 
 #member-table td {
-    padding: 16px;
+    padding: 10px;
     background: rgba(25, 27, 35, 0.85);
     border-radius: 14px;
     box-shadow:
@@ -210,3 +210,4 @@ body {
 .hidden {
     display: none !important;
 }
+
