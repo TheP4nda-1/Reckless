@@ -87,6 +87,37 @@ app.get("/callback", async (req, res) => {
   return res.redirect("/");
 });
 
+function loadMembers() {
+    fetch("/api/members")
+        .then(res => res.json())
+        .then(members => {
+            const table = document.getElementById("member-table");
+
+            // zuerst alte Zeilen entfernen (außer Header)
+            table.querySelectorAll("tr:not(:first-child)").forEach(e => e.remove());
+
+            members.forEach(m => {
+                const avatarURL = m.avatar
+                    ? `https://cdn.discordapp.com/avatars/${m.id}/${m.avatar}.png?size=64`
+                    : `https://cdn.discordapp.com/embed/avatars/0.png`;
+
+                const row = document.createElement("tr");
+
+                row.innerHTML = `
+                    <td><img src="${avatarURL}" width="48" height="48" style="border-radius:50%"></td>
+                    <td>${m.username}</td>
+                    <td>${m.nickname || "-"}</td>
+                    <td>${m.roles.join(", ")}</td>
+                `;
+
+                table.appendChild(row);
+            });
+        })
+        .catch(err => console.error("Fehler beim Laden der Members:", err));
+}
+
+
+
 // ➤ /api/me — Userdaten
 app.get("/api/me", async (req, res) => {
   console.log("SESSION TOKEN =", req.session.access_token);
