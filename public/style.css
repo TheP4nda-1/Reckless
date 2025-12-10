@@ -164,6 +164,31 @@ body {
     transition: 0.2s;
 }
 
+#member-table td {
+    border-radius: 0;
+}
+
+/* Jeder User als EIN runder Block */
+#member-table tr {
+    background: rgba(25,27,35,0.85);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow:
+        0 6px 25px rgba(0,0,0,0.45),
+        inset 0 0 12px rgba(88,101,242,0.15);
+    transition: 0.2s;
+}
+
+/* Hover-Effekt */
+#member-table tr:hover {
+    background: rgba(35,38,48,0.95);
+    box-shadow:
+        0 12px 45px rgba(88,101,242,0.55),
+        inset 0 0 22px rgba(88,101,242,0.3);
+}
+
+
+
 #member-table tr:hover td {
     background: rgba(35, 38, 48, 0.95);
     box-shadow:
@@ -210,6 +235,7 @@ body {
 .hidden {
     display: none !important;
 }
+
 
 
 
