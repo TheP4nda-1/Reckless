@@ -21,13 +21,6 @@ app.use(express.json());
 // Render verwendet einen Proxy → Sessions funktionieren sonst nicht
 app.set("trust proxy", 1);
 
-const enhanced = members.map(m => ({
-    id: m.user?.id || "unknown",
-    username: m.user?.username || "Unbekannt",
-    avatar: m.user?.avatar || null,
-    nickname: m.nick || null,
-    roles: m.roles?.map(rid => roleMap[rid] || rid) || []
-}));
 
 // ⭐ KORREKTE SESSION CONFIG — nur diese, NICHT doppelt!
 app.use(
@@ -191,12 +184,13 @@ app.get("/api/members", async (req, res) => {
 
         // 3) Mitglieder erweitern (nickname, roles → names)
         const enhanced = members.map(m => ({
-            id: m.user.id,
-            username: m.user.username,
-            avatar: m.user.avatar,
+            id: m.user?.id || "unknown",
+            username: m.user?.username || "Unbekannt",
+            avatar: m.user?.avatar || null,
             nickname: m.nick || null,
-            roles: m.roles.map(rid => roleMap[rid] || rid) // Rolle in Namen umwandeln
+            roles: m.roles?.map(rid => roleMap[rid] || rid) || []
         }));
+
 
         return res.json(enhanced);
 
